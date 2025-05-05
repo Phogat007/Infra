@@ -8,15 +8,20 @@ const Newsletter = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const handleSubmit = () => {
-    if (email) {
-      setIsSubmitted(true);
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setEmail("");
-        setIsSubmitted(false);
-      }, 3000);
-    }
+    if (!email) return;
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setEmail("");
+      setIsSubmitted(false);
+    }, 3000);
   };
+
+  const BenefitItem = ({ text }) => (
+    <div className="flex items-center text-blue-700">
+      <CheckCircle className="h-4 w-4 mr-2 text-blue-500" />
+      <span>{text}</span>
+    </div>
+  );
 
   return (
     <section className="py-24 bg-gradient-to-br from-sky-50 via-white to-blue-50 relative overflow-hidden">
@@ -52,11 +57,8 @@ const Newsletter = () => {
           
           <div className="p-10 md:p-14">
             <div className="text-center">
-              <div className="mb-4">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 font-medium text-sm">
-                  <Bell className="mr-2 h-4 w-4" />
-                  Stay Updated
-                </div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 font-medium text-sm mb-4">
+                <Bell className="mr-2 h-4 w-4" />Stay Updated
               </div>
               
               <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-7 relative inline-block">
@@ -93,8 +95,7 @@ const Newsletter = () => {
                     
                     {/* Floating features */}
                     <div className="absolute -top-3 -right-3 bg-white px-3 py-1 rounded-full shadow-md text-xs font-medium text-blue-700 border border-blue-100 hidden sm:flex items-center">
-                      <CheckCircle className="h-3 w-3 mr-1 text-blue-500" />
-                      No spam, ever
+                      <CheckCircle className="h-3 w-3 mr-1 text-blue-500" />No spam, ever
                     </div>
                   </div>
                 ) : (
@@ -114,18 +115,9 @@ const Newsletter = () => {
           {/* Bottom benefit bar */}
           <div className="bg-blue-50 py-4 px-6 border-t border-blue-100">
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-              <div className="flex items-center text-blue-700">
-                <CheckCircle className="h-4 w-4 mr-2 text-blue-500" />
-                <span>Weekly Updates</span>
-              </div>
-              <div className="flex items-center text-blue-700">
-                <CheckCircle className="h-4 w-4 mr-2 text-blue-500" />
-                <span>Exclusive Offers</span>
-              </div>
-              <div className="flex items-center text-blue-700">
-                <CheckCircle className="h-4 w-4 mr-2 text-blue-500" />
-                <span>Unsubscribe Anytime</span>
-              </div>
+              {['Weekly Updates', 'Exclusive Offers', 'Unsubscribe Anytime'].map(text => 
+                <BenefitItem key={text} text={text} />
+              )}
             </div>
           </div>
         </div>
@@ -148,17 +140,9 @@ const Newsletter = () => {
           50% { transform: translateY(-20px) scale(1.1); }
         }
         
-        .animate-shimmer {
-          animation: shimmer 3s infinite;
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out forwards;
-        }
-        
-        .animate-float {
-          animation: float 5s ease-in-out infinite;
-        }
+        .animate-shimmer { animation: shimmer 3s infinite; }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+        .animate-float { animation: float 5s ease-in-out infinite; }
       `}</style>
     </section>
   );

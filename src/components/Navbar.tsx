@@ -32,14 +32,22 @@ const Navbar = () => {
     </a>
   );
 
-  return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white shadow-md py-3" 
-          : "bg-gradient-to-r from-blue-50/80 to-white/80 backdrop-blur-md py-4"
-      }`}
+  const headerClass = `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    isScrolled ? "bg-white shadow-md py-3" : "bg-gradient-to-r from-blue-50/80 to-white/80 backdrop-blur-md py-4"
+  }`;
+
+  const QuoteButton = ({ mobile = false, onClick = null }) => (
+    <a 
+      href="#quote" 
+      className={`${mobile ? "block w-full" : ""} bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium ${mobile ? "text-center" : "text-sm"} shadow-sm shadow-blue-200/50 transition-all duration-300`}
+      onClick={onClick}
     >
+      Request Quote
+    </a>
+  );
+
+  return (
+    <header className={headerClass}>
       <div className="container flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex items-center">
@@ -59,12 +67,7 @@ const Navbar = () => {
           <button className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded-lg transition-colors duration-200 mr-3">
             <Search size={18} />
           </button>
-          <a 
-            href="#quote" 
-            className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium text-sm shadow-sm shadow-blue-200/50 transition-all duration-300"
-          >
-            Request Quote
-          </a>
+          <QuoteButton />
         </div>
 
         {/* Mobile Menu Button */}
@@ -88,13 +91,7 @@ const Navbar = () => {
                 <NavLink key={link.href} href={link.href} text={link.text} mobile />
               ))}
               <div className="pt-3 mt-2 border-t border-blue-50">
-                <a 
-                  href="#quote" 
-                  className="block w-full bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium text-center shadow-sm shadow-blue-200/50 transition-all duration-300"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Request Quote
-                </a>
+                <QuoteButton mobile onClick={() => setIsMobileMenuOpen(false)} />
               </div>
             </nav>
           </div>

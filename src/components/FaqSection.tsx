@@ -1,39 +1,28 @@
 import { useState } from 'react';
 import { HelpCircle, MessageCircle } from 'lucide-react';
 
-// Custom FAQ accordion component
-const FAQItem = ({ question, answer, isOpen, onClick }) => {
-  return (
-    <div className="border-b border-blue-100 last:border-b-0">
-      <button 
-        className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none"
-        onClick={onClick}
-      >
-        <div className="text-blue-900 font-medium">
-          <span className="text-lg hover:text-blue-700 transition-colors duration-300">{question}</span>
-        </div>
-        <div className={`flex items-center justify-center h-6 w-6 rounded-full transition-colors duration-300 ${isOpen ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
-          {isOpen ? (
-            <span className="text-sm font-bold">−</span>
-          ) : (
-            <span className="text-sm font-bold">+</span>
-          )}
-        </div>
-      </button>
-      <div 
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
-      >
-        <div className="px-6 pb-5 pt-1 text-gray-600">
-          {answer}
-        </div>
+const FAQItem = ({ question, answer, isOpen, onClick }) => (
+  <div className="border-b border-blue-100 last:border-b-0">
+    <button 
+      className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none"
+      onClick={onClick}
+    >
+      <div className="text-blue-900 font-medium">
+        <span className="text-lg hover:text-blue-700 transition-colors duration-300">{question}</span>
       </div>
+      <div className={`flex items-center justify-center h-6 w-6 rounded-full transition-colors duration-300 ${isOpen ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
+        <span className="text-sm font-bold">{isOpen ? '−' : '+'}</span>
+      </div>
+    </button>
+    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className="px-6 pb-5 pt-1 text-gray-600">{answer}</div>
     </div>
-  );
-};
+  </div>
+);
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
-
+  
   const faqs = [
     {
       question: "How can I purchase Infra Industries products?",
@@ -56,11 +45,6 @@ export default function FAQSection() {
       answer: "Absolutely. Our water storage containers are food-grade and UV-stabilized to ensure safe and long-lasting usage. Our furniture is crafted using premium plastic and cane-finish materials that are durable, lightweight, and weather-resistant."
     }
   ];
-  
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-sky-50 via-white to-blue-50 relative overflow-hidden">
@@ -72,12 +56,9 @@ export default function FAQSection() {
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 font-medium text-sm mb-6">
-            <HelpCircle className="mr-2 h-4 w-4" />
-            <span>Got Questions?</span>
+            <HelpCircle className="mr-2 h-4 w-4" /><span>Got Questions?</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">
-            Frequently Asked Questions
-          </h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">Frequently Asked Questions</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Find answers to common questions about our products, shipping, returns, and more.
             If you can't find what you're looking for, feel free to contact us.
@@ -92,15 +73,14 @@ export default function FAQSection() {
                 question={faq.question} 
                 answer={faq.answer} 
                 isOpen={openIndex === index}
-                onClick={() => toggleFAQ(index)}
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
               />
             ))}
           </div>
           
           <div className="mt-12 text-center">
             <button className="inline-flex items-center px-8 py-4 rounded-xl bg-white hover:bg-blue-50 text-blue-700 border border-blue-200 font-medium text-lg shadow-sm transition-all duration-300 hover:shadow-md">
-              <MessageCircle className="mr-3 h-5 w-5" />
-              Still Have Questions? Contact Us
+              <MessageCircle className="mr-3 h-5 w-5" />Still Have Questions? Contact Us
             </button>
           </div>
         </div>

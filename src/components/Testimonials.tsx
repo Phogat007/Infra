@@ -71,13 +71,9 @@ const Testimonials = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     
-    if (direction === "next") {
-      setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    } else if (direction === "prev") {
-      setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    } else if (typeof direction === "number" && direction !== activeIndex) {
-      setActiveIndex(direction);
-    }
+    if (direction === "next") setActiveIndex(prev => (prev + 1) % testimonials.length);
+    else if (direction === "prev") setActiveIndex(prev => (prev - 1 + testimonials.length) % testimonials.length);
+    else if (typeof direction === "number" && direction !== activeIndex) setActiveIndex(direction);
     
     setTimeout(() => setIsAnimating(false), 600);
   };
@@ -85,6 +81,19 @@ const Testimonials = () => {
   const nextIndex = (activeIndex + 1) % testimonials.length;
   const prevIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
   const activeTestimonial = testimonials[activeIndex];
+
+  const PreviewCard = ({ index, direction }) => (
+    <Card onClick={() => handleNavigation(direction)} className={`bg-white border-l-4 ${direction === "next" ? "border-l-blue-500" : "border-l-blue-300"} shadow-md overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}>
+      <CardContent className="p-4 flex items-center gap-3">
+        <img src={testimonials[index].image} alt={testimonials[index].name} className="w-12 h-12 rounded-full object-cover border border-blue-200" />
+        <div className="flex-1 truncate">
+          <p className="font-medium text-blue-900">{testimonials[index].name}</p>
+          <p className="text-xs text-gray-500 truncate">{testimonials[index].quote.substring(0, 60)}...</p>
+        </div>
+        {direction === "next" ? <ChevronRight className="w-5 h-5 text-blue-500" /> : <ChevronLeft className="w-5 h-5 text-blue-500" />}
+      </CardContent>
+    </Card>
+  );
 
   return (
     <section className="py-24 bg-gradient-to-br from-sky-50 via-white to-blue-50 relative overflow-hidden">
@@ -97,16 +106,13 @@ const Testimonials = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-800 font-medium text-sm mb-5">
-            <MessageSquare className="inline-block mr-2 h-4 w-4" />
-            Customer Experiences
+            <MessageSquare className="inline-block mr-2 h-4 w-4" />Customer Experiences
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4 relative">
             What Our Customers Say
             <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-500 rounded-full"></span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover why customers love our INFRA and keep coming back for more.
-          </p>
+          <p className="text-gray-600 max-w-2xl mx-auto">Discover why customers love our INFRA and keep coming back for more.</p>
         </div>
 
         {/* Testimonial Showcase */}
@@ -124,11 +130,7 @@ const Testimonials = () => {
                     {/* Avatar */}
                     <div className="relative">
                       <div className="absolute -top-3 -left-3 w-24 h-24 rounded-full border-2 border-blue-400/30"></div>
-                      <img
-                        src={activeTestimonial.image}
-                        alt={activeTestimonial.name}
-                        className="w-20 h-20 rounded-full object-cover border-2 border-blue-500 z-10 relative shadow-lg"
-                      />
+                      <img src={activeTestimonial.image} alt={activeTestimonial.name} className="w-20 h-20 rounded-full object-cover border-2 border-blue-500 z-10 relative shadow-lg" />
                       <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white rounded-full p-1 shadow-md">
                         <ThumbsUp className="w-4 h-4" />
                       </div>
@@ -137,8 +139,7 @@ const Testimonials = () => {
                     {/* Content */}
                     <div className="flex-1">
                       <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium mb-3">
-                        <Award className="w-3 h-3 mr-1" />
-                        {activeTestimonial.highlight}
+                        <Award className="w-3 h-3 mr-1" />{activeTestimonial.highlight}
                         <span className="ml-2 text-blue-500 text-xs">{activeTestimonial.date}</span>
                       </div>
                       
@@ -151,7 +152,7 @@ const Testimonials = () => {
                         </div>
                         
                         <div className="flex items-center">
-                          {Array(5).fill(0).map((_, i) => (
+                          {[...Array(5)].map((_, i) => (
                             <Star key={i} className={`w-4 h-4 ${i < activeTestimonial.rating ? "text-blue-500 fill-blue-500" : "text-gray-300"}`} />
                           ))}
                           <span className="ml-2 text-blue-700 font-bold">{activeTestimonial.rating}.0</span>
@@ -185,33 +186,17 @@ const Testimonials = () => {
             
             {/* Preview cards */}
             <div className="lg:col-span-4 flex flex-col justify-center gap-4">
-              {/* Next preview */}
-              <Card onClick={() => handleNavigation("next")} className="bg-white border-l-4 border-l-blue-500 shadow-md overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <img src={testimonials[nextIndex].image} alt={testimonials[nextIndex].name} className="w-12 h-12 rounded-full object-cover border border-blue-200" />
-                  <div className="flex-1 truncate">
-                    <p className="font-medium text-blue-900">{testimonials[nextIndex].name}</p>
-                    <p className="text-xs text-gray-500 truncate">{testimonials[nextIndex].quote.substring(0, 60)}...</p>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-blue-500" />
-                </CardContent>
-              </Card>
-              
-              {/* Previous preview */}
-              <Card onClick={() => handleNavigation("prev")} className="bg-white border-l-4 border-l-blue-300 shadow-md overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <img src={testimonials[prevIndex].image} alt={testimonials[prevIndex].name} className="w-12 h-12 rounded-full object-cover border border-blue-200" />
-                  <div className="flex-1 truncate">
-                    <p className="font-medium text-blue-900">{testimonials[prevIndex].name}</p>
-                    <p className="text-xs text-gray-500 truncate">{testimonials[prevIndex].quote.substring(0, 60)}...</p>
-                  </div>
-                  <ChevronLeft className="w-5 h-5 text-blue-500" />
-                </CardContent>
-              </Card>
+              <PreviewCard index={nextIndex} direction="next" />
+              <PreviewCard index={prevIndex} direction="prev" />
               
               {/* Autoplay toggle */}
-              <Button onClick={() => setAutoplay(!autoplay)} variant="ghost" size="sm" className={`mt-2 text-xs ${autoplay ? 'text-blue-700' : 'text-gray-500'}`}>
-                {autoplay ? 'Auto-rotate: On' : 'Auto-rotate: Off'}
+              <Button 
+                onClick={() => setAutoplay(!autoplay)} 
+                variant="ghost" 
+                size="sm" 
+                className={`mt-2 text-xs ${autoplay ? 'text-blue-700' : 'text-gray-500'}`}
+              >
+                {`Auto-rotate: ${autoplay ? 'On' : 'Off'}`}
               </Button>
             </div>
           </div>

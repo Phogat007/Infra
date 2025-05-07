@@ -1,53 +1,78 @@
-# Welcome to your INFRA project
+# 🚀 Flux8Labs Infra Website
 
-## How can I edit this code?
+A modern, responsive web application for infrastructure management and monitoring built with React, TypeScript, and Tailwind CSS.
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
+- **Framework**: [React](https://reactjs.org/) with [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/) - for lightning-fast development
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/) - Beautifully designed components
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 
-**Use your preferred IDE**
+## 🚀 Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (v16.0.0 or later)
+- npm or yarn
 
-Follow these steps:
+### Installation Options
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+#### Option 1: Local Development
+
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
+# Navigate to project directory
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
+# or
+yarn install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+# or
+yarn dev
 ```
 
-**Edit a file directly in GitHub**
+Your application will be available at `http://localhost:5173/` with hot module replacement enabled.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+#### Option 2: Edit in GitHub
 
-**Use GitHub Codespaces**
+1. Navigate to the file you want to edit in the GitHub repository
+2. Click the pencil icon (Edit) in the top right corner
+3. Make your changes and commit directly to the repository
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+#### Option 3: GitHub Codespaces
 
-## What technologies are used for this project?
+1. From the repository's main page, click the "Code" button
+2. Select the "Codespaces" tab
+3. Click "New codespace" to launch a development environment
+4. Start coding immediately in the browser-based VS Code environment
 
-This project is built with:
+## 📝 Scripts
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
 
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-new-feature`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Support
+
+For questions, issues, or feature requests, please [open an issue](https://github.com/Phogat007/Homiefye/issues) on GitHub or contact the Flux8Labs team at info@fluxfo8labs.com.

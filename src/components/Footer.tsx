@@ -188,7 +188,7 @@ const Footer = () => {
             <p className="text-gray-500 text-base mt-1">
               Made with ❤️ by{" "}
               <a href="https://flux8labs.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
-                flux8labs
+                Flux8labs
               </a>
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
